@@ -1,7 +1,8 @@
 import pytest
 from rest_framework.test import APIClient
 from api.models.furniture import Furniture
-from api.models.order import Order
+from api.models.inventory import Inventory
+from api.models.order import Order, OrderItem
 from api.models.shopping_cart import ShoppingCart
 from django.contrib.auth import get_user_model
 
@@ -9,7 +10,6 @@ User = get_user_model()
 
 @pytest.mark.django_db
 def test_full_order_process():
-    
     client = APIClient()
 
     # Register a User
@@ -38,11 +38,22 @@ def test_full_order_process():
         "description": "Luxury Wooden Dining Table",
         "category": "table",
         "price": 300.00,
-        "dimensions": "180x90x80 cm",
-        "stock": 10
+        "dimensions": "180x90x80 cm"
     }, format="json")
     assert response.status_code == 201
     furniture_id = response.data["id"]
+
+    # Create Inventory Entry
+    response = client.post("/inventory/", {
+        "furniture": furniture_id,
+        "quantity": 10
+    }, format="json")
+    assert response.status_code == 201
+    inventory_id = response.data["id"]
+
+    # Fetch the inventory object
+    inventory = Inventory.objects.get(id=inventory_id)
+    assert inventory.quantity == 10
 
     # Add Item to Shopping Cart
     response = client.post("/shopping-cart/", {
@@ -64,9 +75,9 @@ def test_full_order_process():
     assert response.status_code == 201
     order_id = response.data["order_id"]
 
-    # Ensure Inventory Updates
-    furniture = Furniture.objects.get(id=furniture_id)
-    assert furniture.stock == 8  # Stock reduced by 2
+    # Refresh inventory and check updated quantity
+    inventory.refresh_from_db()
+    assert inventory.quantity == 8  # Stock reduced by 2
 
     # Ensure Order Exists
     order = Order.objects.get(id=order_id)
@@ -85,6 +96,3 @@ def test_full_order_process():
     # Authenticate as Admin
     admin = User.objects.create_superuser(username="admin", email="admin@test.com", password="admin123")
     client.force_authenticate(user=admin)
-
-
-
