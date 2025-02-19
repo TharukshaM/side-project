@@ -21,8 +21,7 @@ class FurnitureAPITestCase(APITestCase):
             description="A durable wooden chair",
             category="Chair",
             price=100.0,
-            dimensions="40x40x90 cm",
-            stock=5
+            dimensions="40x40x90 cm"
         )
 
     def test_create_furniture(self):
@@ -33,8 +32,7 @@ class FurnitureAPITestCase(APITestCase):
             "description": "A comfortable sofa",
             "category": "sofa",
             "price": 250.00,
-            "dimensions": "180x90x80 cm",
-            "stock": 10
+            "dimensions": "180x90x80 cm"
         }
         response = self.client.post(url, data, format="json")
 

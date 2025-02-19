@@ -4,8 +4,8 @@ from .furniture import Furniture
 class Inventory(models.Model):
     """Inventory class to manage furniture stock."""
     
-    furniture = models.OneToOneField(Furniture, on_delete=models.CASCADE, related_name="inventory")
-    quantity = models.PositiveIntegerField(default=0)  # Actual stock count
+    furniture = models.ForeignKey(Furniture, on_delete=models.CASCADE)  # ✅ Ensure ForeignKey constraint
+    quantity = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return f"{self.furniture.name} - {self.quantity} in stock"
