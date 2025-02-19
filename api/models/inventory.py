@@ -1,10 +1,10 @@
 from django.db import models
-from .furniture import Furniture  # Import Furniture model
+from .furniture import Furniture
 
 class Inventory(models.Model):
     """Inventory class to manage furniture stock."""
     
-    furniture = models.OneToOneField(Furniture, on_delete=models.CASCADE)
+    furniture = models.OneToOneField(Furniture, on_delete=models.CASCADE, related_name="inventory")
     quantity = models.PositiveIntegerField(default=0)  # Actual stock count
 
     def __str__(self):
@@ -15,8 +15,6 @@ class Inventory(models.Model):
         if amount <= 0:
             raise ValueError("Amount must be greater than zero")
         self.quantity += amount
-        self.furniture.stock += amount
-        self.furniture.save()
         self.save()
 
     def remove_furniture(self, amount):
@@ -26,8 +24,6 @@ class Inventory(models.Model):
         if amount > self.quantity:
             raise ValueError("Not enough stock available")
         self.quantity -= amount
-        self.furniture.stock -= amount
-        self.furniture.save()
         self.save()
 
     def update_furniture_quantity(self, new_quantity):
@@ -35,8 +31,6 @@ class Inventory(models.Model):
         if new_quantity < 0:
             raise ValueError("Quantity cannot be negative")
         self.quantity = new_quantity
-        self.furniture.stock = new_quantity
-        self.furniture.save()
         self.save()
 
     @staticmethod
