@@ -3,12 +3,16 @@ from rest_framework.routers import DefaultRouter
 from .views import RegisterUserView, LoginUserView, UserProfileView
 from .views import FurnitureViewSet
 from .views import InventoryViewSet
+from .views import CheckoutViewSet
+from .views import OrderViewSet
 from .views.shopping_cart import ShoppingCartViewSet
 
 router = DefaultRouter()
 router.register(r'furniture', FurnitureViewSet, basename='furniture')
 router.register(r'inventory', InventoryViewSet, basename='inventory')
 router.register(r'shopping-cart', ShoppingCartViewSet, basename='shopping-cart')
+router.register(r'checkout', CheckoutViewSet, basename='checkout')
+router.register(r'order', OrderViewSet, basename='order')
 
 urlpatterns = [
     path('', include(router.urls)),
