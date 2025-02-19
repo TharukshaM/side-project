@@ -41,7 +41,9 @@ class CheckoutViewSet(viewsets.ViewSet):
 
         # Create order items & update inventory
         for cart_item in cart_items:
-            if cart_item.quantity > cart_item.furniture.stock:
+            inventory = Inventory.objects.get(furniture=cart_item.furniture)
+            
+            if cart_item.quantity > inventory.quantity:
                 return Response(
                     {"error": f"Not enough stock for {cart_item.furniture.name}."}, 
                     status=status.HTTP_400_BAD_REQUEST
@@ -55,8 +57,8 @@ class CheckoutViewSet(viewsets.ViewSet):
             )
 
             # Update inventory
-            cart_item.furniture.stock -= cart_item.quantity
-            cart_item.furniture.save()
+            inventory.quantity -= cart_item.quantity
+            inventory.save()
 
         # Clear user's shopping cart
         cart_items.delete()
