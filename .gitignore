@@ -1,0 +1,43 @@
+# Virtual Environment
+venv/
+env/
+
+# Python Bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Django and Database
+db.sqlite3
+db.sqlite3-journal
+
+# Media and Static Files
+media/
+staticfiles/
+*.log
+
+# Environment Variables
+.env
+*.env
+
+# VSCode & PyCharm
+.vscode/
+.idea/
+
+# MacOS System Files
+.DS_Store
+
+# Compiled C files
+*.so
+
+# Coverage Reports
+htmlcov/
+.coverage
+*.cover
+*.py,cover
+coverage.xml
+
+# Testing & Debugging
+.tox/
+.nox/
+*.pytest_cache/

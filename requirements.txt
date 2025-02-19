@@ -1,0 +1,27 @@
+# Django and Django REST Framework
+Django>=5.1.1
+djangorestframework>=3.14.0
+django-cors-headers>=4.3.1
+
+# Authentication and Security
+bcrypt>=4.0.1
+djangorestframework-simplejwt>=5.3.0  # JWT authentication
+
+# Database (SQLite or PostgreSQL)
+psycopg2>=2.9.9  # Only if using PostgreSQL (optional)
+
+# Environment Variables (for security settings)
+python-dotenv>=1.0.0
+
+# Testing and Code Quality
+pytest>=8.0.2
+pytest-django>=4.7.0
+pytest-cov>=4.1.0
+flake8>=7.0.0
+black>=23.12.1
+
+# API Documentation
+drf-yasg>=1.21.7  # For Swagger UI
+
+# Caching and Performance (optional)
+django-redis>=5.4.0  # Redis cache support (if needed)
