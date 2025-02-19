@@ -1,11 +1,11 @@
 from rest_framework import serializers
 from api.models.shopping_cart import ShoppingCart
-from api.models.furniture import Furniture  # ✅ Import the actual model
+from api.models.furniture import Furniture 
 from api.serializers.furniture import FurnitureSerializer
 
 class ShoppingCartSerializer(serializers.ModelSerializer):
-    furniture = FurnitureSerializer(read_only=True)  # ✅ Ensure it's read-only for nested representation
-    furniture_id = serializers.PrimaryKeyRelatedField(queryset=Furniture.objects.all(), source="furniture", write_only=True)  # ✅ Fix
+    furniture = FurnitureSerializer(read_only=True) 
+    furniture_id = serializers.PrimaryKeyRelatedField(queryset=Furniture.objects.all(), source="furniture", write_only=True)
 
     class Meta:
         model = ShoppingCart
