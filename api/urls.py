@@ -6,6 +6,8 @@ from .views import InventoryViewSet
 from .views import CheckoutViewSet
 from .views import OrderViewSet
 from .views.shopping_cart import ShoppingCartViewSet
+from .views.inventory import InventorySearchView
+from api.views.inventory import InventoryViewSet
 
 router = DefaultRouter()
 router.register(r'furniture', FurnitureViewSet, basename='furniture')
@@ -19,4 +21,5 @@ urlpatterns = [
     path('auth/register/', RegisterUserView.as_view(), name='register'),
     path('auth/login/', LoginUserView.as_view(), name='login'),
     path('auth/profile/', UserProfileView.as_view(), name='profile'),
+    path('inventory/search/', InventoryViewSet.as_view({'get': 'search'}), name='inventory-search'),  # ✅ Add search endpoint
 ]

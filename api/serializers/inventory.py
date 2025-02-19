@@ -1,11 +1,8 @@
 from rest_framework import serializers
-from api.models.inventory import Inventory
-from api.serializers.furniture import FurnitureSerializer
+from api.models import Inventory, Furniture
 
 class InventorySerializer(serializers.ModelSerializer):
-    """Serializer for Inventory model."""
-    
-    furniture = FurnitureSerializer(read_only=True)
+    furniture = serializers.PrimaryKeyRelatedField(queryset=Furniture.objects.all())  # ✅ Correct way
 
     class Meta:
         model = Inventory

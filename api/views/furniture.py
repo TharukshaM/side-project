@@ -10,12 +10,6 @@ class FurnitureViewSet(viewsets.ModelViewSet):
     queryset = Furniture.objects.all()
     serializer_class = FurnitureSerializer
 
-    @action(detail=True, methods=['GET'])
-    def check_availability(self, request, pk=None):
-        """Check if the furniture item is available in stock."""
-        furniture = self.get_object()
-        return Response({"stock": furniture.check_availability()})
-
     @action(detail=True, methods=['POST'])
     def apply_discount(self, request, pk=None):
         """Apply a discount to the furniture item."""

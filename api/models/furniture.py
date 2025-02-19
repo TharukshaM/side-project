@@ -15,7 +15,6 @@ class Furniture(models.Model):
     category = models.CharField(max_length=20, choices=CATEGORY_CHOICES)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     dimensions = models.CharField(max_length=100, help_text="Example: 100x50x40 cm")
-    stock = models.PositiveIntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -32,7 +31,3 @@ class Furniture(models.Model):
         tax_decimal = Decimal(str(tax_rate)) / Decimal("100")
         tax_amount = tax_decimal * self.price
         return self.price + tax_amount
-
-    def check_availability(self):
-        """Check if the furniture is available in stock."""
-        return self.stock

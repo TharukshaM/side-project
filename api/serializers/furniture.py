@@ -9,9 +9,9 @@ class FurnitureSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Furniture
-        fields = ['id', 'name', 'description', 'category', 'price', 'dimensions', 'stock', 'created_at', 
+        fields = ['id', 'name', 'description', 'category', 'price', 'dimensions', 'created_at', 
                   'discounted_price', 'price_with_tax']
-    
+
     def get_discounted_price(self, obj):
         """Applies a default 10% discount."""
         return obj.calculate_discount(10)
