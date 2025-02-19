@@ -3,10 +3,12 @@ from rest_framework.routers import DefaultRouter
 from .views import RegisterUserView, LoginUserView, UserProfileView
 from .views import FurnitureViewSet
 from .views import InventoryViewSet
+from .views.shopping_cart import ShoppingCartViewSet
 
 router = DefaultRouter()
 router.register(r'furniture', FurnitureViewSet, basename='furniture')
 router.register(r'inventory', InventoryViewSet, basename='inventory')
+router.register(r'shopping-cart', ShoppingCartViewSet, basename='shopping-cart')
 
 urlpatterns = [
     path('', include(router.urls)),
