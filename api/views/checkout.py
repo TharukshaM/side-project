@@ -63,4 +63,6 @@ class CheckoutViewSet(viewsets.ViewSet):
         # Clear user's shopping cart
         cart_items.delete()
 
+        #This is for check commit comment by 
+
         return Response({"message": "Order placed successfully!", "order_id": order.id}, status=status.HTTP_201_CREATED)
