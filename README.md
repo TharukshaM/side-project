@@ -60,7 +60,8 @@ The Furniture Store API is a RESTful API built with Django and Django REST Frame
     {
       "username": "string",
       "email": "string",
-      "password": "string"
+      "password": "string",
+      "address": "string"
     }
     ```
 
@@ -95,6 +96,17 @@ The Furniture Store API is a RESTful API built with Django and Django REST Frame
       "dimensions": "string"
     }
     ```
+#### Inventory
+
+- **Create a new Inventory Entry**
+  - **POST** `/inventory/`
+  - Request Body:
+    ```json
+    {
+      "furniture": "integer",
+      "quantity": "integer"
+    }
+    ```
 
 #### Shopping Cart
 
@@ -115,7 +127,7 @@ The Furniture Store API is a RESTful API built with Django and Django REST Frame
 #### Checkout
 
 - **Checkout and place an order**
-  - **POST** `/checkout/`
+  - **POST** `/checkout/checkout/`
   - Request Body:
     ```json
     {
@@ -149,3 +161,14 @@ The API uses token-based authentication. After logging in, you will receive a to
 
 ```http
 Authorization: Token <your_token_here>
+```
+
+## Running Tests
+
+To run the tests, use the following command:
+```bash
+pytest api/tests/
+```
+## CI/CD
+
+The project includes a GitHub Actions workflow (`ci-pipeline.yml`) that runs linting and tests on every push to the `main` branch or when a pull request is opened.
