@@ -1,5 +1,5 @@
-from django.db import models
 from decimal import Decimal
+from django.db import models
 
 class Furniture(models.Model):
     CATEGORY_CHOICES = [
@@ -23,11 +23,12 @@ class Furniture(models.Model):
     def calculate_discount(self, percentage):
         """Apply a discount and return the new price."""
         percentage_decimal = Decimal(str(percentage)) / Decimal("100")
-        discount_amount = percentage_decimal * self.price
-        return round(self.price - discount_amount, 2)
+        price_decimal = Decimal(str(self.price))
+        discount_amount = percentage_decimal * price_decimal
+        return round(price_decimal - discount_amount, 2) 
 
     def apply_tax(self, tax_rate=10):
         """Apply a tax percentage to the price."""
         tax_decimal = Decimal(str(tax_rate)) / Decimal("100")
-        tax_amount = tax_decimal * self.price
+        tax_amount = tax_decimal * Decimal(str(self.price))
         return self.price + tax_amount
