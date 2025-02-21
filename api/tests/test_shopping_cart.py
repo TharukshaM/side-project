@@ -1,6 +1,7 @@
 from django.test import TestCase
 from django.contrib.auth import get_user_model
 from api.models.furniture import Furniture
+from api.models.inventory import Inventory
 from api.models.shopping_cart import ShoppingCart
 
 User = get_user_model()
@@ -9,7 +10,16 @@ class ShoppingCartTestCase(TestCase):
     def setUp(self):
         """Set up test data."""
         self.user = User.objects.create_user(username="testuser", email="test@example.com", password="password123")
-        self.furniture = Furniture.objects.create(name="Wooden Table", category="table", price=200.00, stock=5)
+        self.furniture = Furniture.objects.create(
+            name="Wooden Table", 
+            category="table", 
+            price=200.00, 
+            dimensions="100x50x40 cm"
+        )
+        
+        # Create inventory entry
+        self.inventory = Inventory.objects.create(furniture=self.furniture, quantity=5)
+        
         self.cart_item = ShoppingCart.objects.create(user=self.user, furniture=self.furniture, quantity=2)
 
     def test_cart_total_price(self):
