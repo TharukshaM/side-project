@@ -23,7 +23,7 @@ def test_full_order_process():
 
     # Login User
     response = client.post("/auth/login/", {
-        "username": "test@example.com",
+        "username": "testuser",
         "password": "password123"
     })
     assert response.status_code == 200
